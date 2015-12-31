@@ -26,4 +26,6 @@ public class Run {
     public String getGame() { return game; }
 
     public Date getDate() { return date; }
+
+    public void setDate(Date date) { this.date = date; }
 }
