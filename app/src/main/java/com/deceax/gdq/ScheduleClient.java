@@ -8,9 +8,6 @@ import retrofit.GsonConverterFactory;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-/**
- * Created by Lese on 11/23/15.
- */
 public class ScheduleClient {
 
     ScheduleConsumer consumer;

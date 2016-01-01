@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Lese on 11/23/15.
- */
 public class RunAdapter extends RecyclerView.Adapter<RunViewHolder> {
     private final List<Run> runs;
 

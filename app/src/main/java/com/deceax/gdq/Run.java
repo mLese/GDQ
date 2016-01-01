@@ -2,9 +2,6 @@ package com.deceax.gdq;
 
 import java.util.Date;
 
-/**
- * Created by Lese on 11/23/15.
- */
 public class Run {
     private Date date;
     private String game;
@@ -28,4 +25,8 @@ public class Run {
     public Date getDate() { return date; }
 
     public void setDate(Date date) { this.date = date; }
+
+    public String getRunner() { return runner; }
+
+    public String getIncentive() { return incentive; }
 }

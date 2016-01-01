@@ -6,19 +6,19 @@ import android.view.View;
 
 import com.deceax.gdq.databinding.RunItemBinding;
 
-/**
- * Created by Lese on 11/23/15.
- */
 public class RunViewHolder extends RecyclerView.ViewHolder {
 
     private RunItemBinding binding;
+    private View runDetails;
 
     public RunViewHolder(View itemView) {
         super(itemView);
+        runDetails = itemView.findViewById(R.id.run_details);
         binding = DataBindingUtil.bind(itemView);
     }
 
     public void bind(Run run) {
         binding.setRun(run);
+        binding.setHandler(new ClickHandler(runDetails));
     }
 }

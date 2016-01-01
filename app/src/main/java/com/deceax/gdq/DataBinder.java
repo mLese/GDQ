@@ -21,8 +21,17 @@ public class DataBinder {
 
     @BindingAdapter("category")
     public static void setCategory(TextView textView, String category) {
-        if (category != null && category.length() > 0) {
-            textView.setText(category);
+        showOptionalField(textView, category);
+    }
+
+    @BindingAdapter("incentive")
+    public static void setIncentive(TextView textView, String incentive) {
+        showOptionalField(textView, incentive);
+    }
+
+    private static void showOptionalField(TextView textView, String text) {
+        if (text != null && text.length() > 0) {
+            textView.setText(text);
         } else {
             textView.setVisibility(View.GONE);
         }
