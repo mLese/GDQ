@@ -34,7 +34,7 @@ public class ScheduleClient {
 
             @Override
             public void onFailure(Throwable t) {
-
+                consumer.onFailure(t);
             }
         });
     }

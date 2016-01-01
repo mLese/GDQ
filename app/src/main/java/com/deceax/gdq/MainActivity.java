@@ -2,6 +2,8 @@ package com.deceax.gdq;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,6 +12,9 @@ import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.Calendar;
 import java.util.List;
@@ -23,6 +28,12 @@ public class MainActivity extends AppCompatActivity implements ScheduleConsumer,
 
     private List<Run> mRunList;
 
+    private TextView mConnectivityError;
+
+    private ScheduleClient mClient;
+
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements ScheduleConsumer,
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mConnectivityError = (TextView) findViewById(R.id.connectivity_error);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -43,16 +57,39 @@ public class MainActivity extends AppCompatActivity implements ScheduleConsumer,
         PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pager_title_strip);
         pagerTabStrip.setTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAccent));
 
-        ScheduleClient client = new ScheduleClient(this);
-        client.fetchSchedule();
+        mClient = new ScheduleClient(this);
+        fetchSchedule();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fetchSchedule();
+            }
+        });
+    }
+
+    private void fetchSchedule() {
+        mProgressBar.setVisibility(View.VISIBLE);
+        mConnectivityError.setVisibility(View.GONE);
+        mClient.fetchSchedule();
     }
 
     @Override
     public void onScheduleRetrieved(List<Run> runList) {
+        mConnectivityError.setVisibility(View.GONE);
+        mProgressBar.setVisibility(View.GONE);
         this.mRunList = runList;
         for (Fragment fragment : mSectionsPagerAdapter.getFragments()) {
             ((DailyScheduleFragment)fragment).setSchedule(runList);
         }
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        Snackbar.make(mViewPager, t.toString(), Snackbar.LENGTH_LONG).show();
+        mConnectivityError.setVisibility(View.VISIBLE);
+        mProgressBar.setVisibility(View.GONE);
     }
 
     @Override

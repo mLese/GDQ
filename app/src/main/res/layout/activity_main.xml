@@ -46,4 +46,30 @@
 
     </android.support.v4.view.ViewPager>
 
+    <TextView
+        android:id="@+id/connectivity_error"
+        style="@android:style/TextAppearance.DeviceDefault.Large"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/could_not_retrieve_schedule"
+        android:visibility="invisible"/>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.ProgressBar.Large.Inverse"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_refresh_black_24dp"
+        android:tint="@color/white"/>
+
 </android.support.design.widget.CoordinatorLayout>
