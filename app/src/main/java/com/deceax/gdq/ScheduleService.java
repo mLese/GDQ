@@ -4,6 +4,6 @@ import retrofit.Call;
 import retrofit.http.GET;
 
 public interface ScheduleService {
-    @GET("/runs.json")
+    @GET("/schedule.json")
     Call<Schedule> getSchedule();
 }
